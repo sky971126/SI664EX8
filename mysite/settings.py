@@ -11,6 +11,12 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
+from mysite import secrets
+
+SECRET_KEY = secrets.SECRET_KEY
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = secrets.SOCIAL_AUTH_GOOGLE_OAUTH2_KEY
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = secrets.SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -144,9 +150,6 @@ AUTHENTICATION_BACKENDS = (
     # 'social_core.backends.yahoo.YahooOpenId',
     'django.contrib.auth.backends.ModelBackend',                                 # <-- Uncomment
 )
-
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '958852332762-ugqtoi13a45oe7ht5c8ei9dulj7lmc2t.apps.googleusercontent.com'
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'IaVi8GkDyiEaJ6-LBZ5KjKtk'
 
 SOCIAL_AUTH_URL_NAMESPACE = 'social'
 
