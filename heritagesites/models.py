@@ -174,35 +174,49 @@ class HeritageSite(models.Model):
     
     @property
     def region_names(self):
-        regions = self.country_area.values_list('location__region__region_name', flat=True).order_by('location__region__region_name')
+        countries = self.country_area.select_related('location__region').order_by('location__region__region_name')
         names = []
-        for region in regions:
-            if region is None:
-                continue
-            if region not in names:
-                names.append(region)
+        for country in countries:
+            try:
+                name = country.location.region.region_name
+                if name is None:
+                    continue
+                if name not in names:
+                    names.append(name)
+            except:
+                pass
+
         return ', '.join(names)
 
     @property
     def sub_region_names(self):
-        sub_regions = self.country_area.values_list('location__sub_region__sub_region_name', flat=True).order_by('location__sub_region__sub_region_name')
+        countries = self.country_area.select_related('location__sub_region').order_by('location__sub_region__sub_region_name')
         names = []
-        for sub_region in sub_regions:
-            if sub_region is None:
-                continue
-            if sub_region not in names:
-                names.append(sub_region)
+        for country in countries:
+            try:
+                name = country.location.sub_region.sub_region_name
+                if name is None:
+                    continue
+                if name not in names:
+                    names.append(name)
+            except:
+                pass
+
         return ', '.join(names)
     
     @property
     def intermediate_region_names(self):
-        intermediate_regions = self.country_area.values_list('location__intermediate_region__intermediate_region_name', flat=True).order_by('location__intermediate_region__intermediate_region_name')
+        countries = self.country_area.select_related('location__intermediate_region').order_by('location__intermediate_region__intermediate_region_name')
         names = []
-        for intermediate_region in intermediate_regions:
-            if intermediate_region is None:
-                continue
-            if intermediate_region not in names:
-                names.append(intermediate_region)
+        for country in countries:
+            try:
+                name = country.location.intermediate_region.intermediate_region_name
+                if name is None:
+                    continue
+                if name not in names:
+                    names.append(name)
+            except:
+                pass
         return ', '.join(names)
 
 '''
